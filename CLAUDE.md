@@ -1,98 +1,71 @@
-# CLAUDE.md
+# Armature — Design Intelligence Skill
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+The hidden framework that gives form to great design. A design education, not a recipe book.
 
-## Project Overview
+## What This Is
 
-Antigravity Kit is an AI-powered design intelligence toolkit providing searchable databases of UI styles, color palettes, font pairings, chart types, and UX guidelines. It works as a skill/workflow for AI coding assistants (Claude Code, Windsurf, Cursor, etc.).
+Armature is a Claude Code skill for crafting production-grade interfaces in Figma via the Figma Console MCP. It provides deep design knowledge — spacing, typography, color, hierarchy, density — and the execution patterns to translate that knowledge into precise Figma builds.
 
-## Search Command
-
-```bash
-python3 src/ui-ux-pro-max/scripts/search.py "<query>" --domain <domain> [-n <max_results>]
-```
-
-**Domain search:**
-- `product` - Product type recommendations (SaaS, e-commerce, portfolio)
-- `style` - UI styles (glassmorphism, minimalism, brutalism) + AI prompts and CSS keywords
-- `typography` - Font pairings with Google Fonts imports
-- `color` - Color palettes by product type
-- `landing` - Page structure and CTA strategies
-- `chart` - Chart types and library recommendations
-- `ux` - Best practices and anti-patterns
-
-**Stack search:**
-```bash
-python3 src/ui-ux-pro-max/scripts/search.py "<query>" --stack <stack>
-```
-Available stacks: `html-tailwind` (default), `react`, `nextjs`, `astro`, `vue`, `nuxtjs`, `nuxt-ui`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
+Specializes in AI product interfaces: conversational UI, generation flows, command patterns, agent interfaces, and the scalable design systems that support them.
 
 ## Architecture
 
 ```
-src/ui-ux-pro-max/                # Source of Truth
-├── data/                         # Canonical CSV databases
-│   ├── products.csv, styles.csv, colors.csv, typography.csv, ...
-│   └── stacks/                   # Stack-specific guidelines
+.claude/skills/armature/
+├── SKILL.md                     # Entry point — philosophy and routing
+├── knowledge/
+│   ├── foundations.md           # Spacing, type, color, hierarchy, density, motion
+│   ├── ai-interfaces.md        # Patterns from the best AI products shipping today
+│   ├── scalable-systems.md     # Token architecture, component composition, governance
+│   └── figma-execution.md      # The bridge: design intent → Figma Console MCP calls
+├── data/                        # Searchable CSV databases (BM25 search engine)
+│   ├── styles.csv, colors.csv, typography.csv, ux-guidelines.csv
+│   ├── charts.csv, products.csv, landing.csv, icons.csv
+│   └── ui-reasoning.csv
 ├── scripts/
-│   ├── search.py                 # CLI entry point
-│   ├── core.py                   # BM25 + regex hybrid search engine
-│   └── design_system.py          # Design system generation
-└── templates/
-    ├── base/                     # Base templates (skill-content.md, quick-reference.md)
-    └── platforms/                # Platform configs (claude.json, cursor.json, ...)
-
-cli/                              # CLI installer (uipro-cli on npm)
-├── src/
-│   ├── commands/init.ts          # Install command with template generation
-│   └── utils/template.ts         # Template rendering engine
-└── assets/                       # Bundled assets (~564KB)
-    ├── data/                     # Copy of src/ui-ux-pro-max/data/
-    ├── scripts/                  # Copy of src/ui-ux-pro-max/scripts/
-    └── templates/                # Copy of src/ui-ux-pro-max/templates/
-
-.claude/skills/ui-ux-pro-max/     # Claude Code skill (symlinks to src/)
-.factory/skills/ui-ux-pro-max/   # Droid (Factory) skill (symlinks to src/)
-.shared/ui-ux-pro-max/            # Symlink to src/ui-ux-pro-max/
-.claude-plugin/                   # Claude Marketplace publishing
+│   ├── search.py               # CLI search engine entry point
+│   ├── core.py                 # BM25 + regex hybrid search
+│   ├── design_system.py        # Design system generation
+│   └── ingest-mobbin.py        # Mobbin Pro export ingestion pipeline
+└── references/
+    ├── mobbin/                  # Ingested Mobbin exports (searchable index)
+    └── gold-standards/          # Drop exceptional design examples here
 ```
 
-The search engine uses BM25 ranking combined with regex matching. Domain auto-detection is available when `--domain` is omitted.
+## Search
 
-## Sync Rules
+```bash
+# Design system generation
+python3 .claude/skills/armature/scripts/search.py "<query>" --design-system -p "Project Name"
 
-**Source of Truth:** `src/ui-ux-pro-max/`
+# Domain search
+python3 .claude/skills/armature/scripts/search.py "<query>" --domain <domain>
+```
 
-When modifying files:
+Domains: `product`, `style`, `typography`, `color`, `landing`, `chart`, `ux`
 
-1. **Data & Scripts** - Edit in `src/ui-ux-pro-max/`:
-   - `data/*.csv` and `data/stacks/*.csv`
-   - `scripts/*.py`
-   - Changes automatically available via symlinks in `.claude/`, `.factory/`, `.shared/`
+## Mobbin Pipeline
 
-2. **Templates** - Edit in `src/ui-ux-pro-max/templates/`:
-   - `base/skill-content.md` - Common SKILL.md content
-   - `base/quick-reference.md` - Quick reference section (Claude only)
-   - `platforms/*.json` - Platform-specific configs
+```bash
+# Ingest a Mobbin Pro ZIP export
+python3 .claude/skills/armature/scripts/ingest-mobbin.py <path-to-zip>
 
-3. **CLI Assets** - Run sync before publishing:
-   ```bash
-   cp -r src/ui-ux-pro-max/data/* cli/assets/data/
-   cp -r src/ui-ux-pro-max/scripts/* cli/assets/scripts/
-   cp -r src/ui-ux-pro-max/templates/* cli/assets/templates/
-   ```
+# Ingest a directory of screenshots
+python3 .claude/skills/armature/scripts/ingest-mobbin.py <directory>
 
-4. **Reference Folders** - No manual sync needed. The CLI generates these from templates during `uipro init`.
+# Search the index
+python3 .claude/skills/armature/scripts/ingest-mobbin.py --search "onboarding"
+
+# List indexed apps
+python3 .claude/skills/armature/scripts/ingest-mobbin.py --list
+```
 
 ## Prerequisites
 
-Python 3.x (no external dependencies required)
+- Python 3.x (no external dependencies)
+- Figma Console MCP (for execution)
+- Figma Desktop with Bridge plugin (for live builds)
 
 ## Git Workflow
 
-Never push directly to `main`. Always:
-
-1. Create a new branch: `git checkout -b feat/...` or `fix/...`
-2. Commit changes
-3. Push branch: `git push -u origin <branch>`
-4. Create PR: `gh pr create`
+Branch-based. Never push directly to main.

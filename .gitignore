@@ -50,4 +50,4 @@ out/
 # Local settings
 .claude/settings.local.json
 .claude/session-state/
-ui-ux-pro-max-website/*
+armature-website/*
