@@ -129,7 +129,7 @@ This is a living skill. The knowledge files, data, and execution patterns are de
 
 ## Credits
 
-Search engine and CSV databases adapted from [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) by nextlevelbuilder (MIT License). Knowledge layer (both the knowledge layer built into this skill and the layers that's part of the overarching Atelier scaffolding system), Figma execution bridge, Mobbin pipeline linkage, and core design philosophy by clerestory.
+Search engine and CSV databases adapted from [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) by nextlevelbuilder (MIT License). Knowledge layer (both the knowledge layer built into this skill and the layers that're part of the overarching Atelier scaffolding system), Figma execution bridge, Mobbin pipeline linkage, and core design philosophy by clerestory.
 
 ## License
 
