@@ -1,12 +1,12 @@
 # Armature
 
-The hidden framework that gives form to great design.
+The Claude Code skill that provides framework for good design.
 
 ---
 
 ## Mission
 
-Armature is a design intelligence layer for Claude Code. It exists to solve a specific problem: Claude is smart enough to design well, but it needs the right knowledge — not over-explained abstractions or prescriptive step-by-step paths that constrain novel thinking.
+Armature is a design intelligence layer for Claude Code. It exists to solve a specific problem: Claude is smart enough to design well, but it needs the right knowledge, not over-explained abstractions or prescriptive step-by-step paths that constrain novel thinking.
 
 This skill provides a **design education**, not a recipe book. It teaches Claude to understand key design philosophies about spacing, hierarchy, typography, color, density, and motion — then trusts Claude to synthesize that knowledge into solutions that fit the problem at hand.
 
