@@ -57,18 +57,19 @@ Load these as needed — they're deep reference, not sequential steps.
 | `knowledge/figma-to-code.md` | **Design to code.** Extracting design intent from Figma and producing production React/Tailwind/GSAP. Code Connect integration, token translation, component extraction |
 | `knowledge/code-to-figma.md` | **Reconciliation.** Detecting drift between code and Figma, mapping manifests, codebase crawling, pushing code reality back into Figma components and frames |
 | `knowledge/motion.md` | **GSAP in React.** Page transitions, scroll-triggered animations, micro-interactions, Flip layout animations, timeline choreography, easing, reduced motion, performance |
+| `knowledge/mcp-orchestration.md` | **MCP orchestration.** Routing rules for Official vs Console MCP, composite operations, lifecycle coordination, helper script index, anti-patterns |
 
 ### Knowledge Routing
 
 | Task | Load These |
 |------|-----------|
-| Design a screen in Figma | `foundations` + `figma-execution` (+ `ai-interfaces` if AI product) |
-| Build a design system in Figma | `scalable-systems` + `figma-execution` |
-| Convert Figma design to code | `figma-to-code` + `motion` |
-| Reconcile code drift to Figma | `code-to-figma` + `figma-execution` |
+| Design a screen in Figma | `foundations` + `figma-execution` + `mcp-orchestration` (+ `ai-interfaces` if AI product) |
+| Build a design system in Figma | `scalable-systems` + `figma-execution` + `mcp-orchestration` |
+| Convert Figma design to code | `figma-to-code` + `motion` + `mcp-orchestration` |
+| Reconcile code drift to Figma | `code-to-figma` + `figma-execution` + `mcp-orchestration` |
 | Critique an interface | `foundations` + `ai-interfaces` |
 | Add animations to a page | `motion` |
-| Full pipeline (design → code → reconcile) | All files as needed per phase |
+| Full pipeline (design → code → reconcile) | All files as needed, `mcp-orchestration` always loaded |
 
 ## Clerestory Context Layer
 

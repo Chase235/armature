@@ -24,7 +24,8 @@ Draws on clerestory-workbench doctrine and domain knowledge as a contextual laye
 │   ├── figma-execution.md      # Design intent → Figma Console MCP calls
 │   ├── figma-to-code.md        # Figma → React/Tailwind/GSAP production code
 │   ├── code-to-figma.md        # Code drift → Figma reconciliation pipeline
-│   └── motion.md               # GSAP in React: transitions, scroll, micro-interactions
+│   ├── motion.md               # GSAP in React: transitions, scroll, micro-interactions
+│   └── mcp-orchestration.md    # MCP routing, composite operations, lifecycle
 ├── data/                        # Searchable CSV databases (BM25 search engine)
 │   ├── styles.csv, colors.csv, typography.csv, ux-guidelines.csv
 │   ├── charts.csv, products.csv, landing.csv, icons.csv
@@ -33,7 +34,13 @@ Draws on clerestory-workbench doctrine and domain knowledge as a contextual laye
 │   ├── search.py               # CLI search engine entry point
 │   ├── core.py                 # BM25 + regex hybrid search
 │   ├── design_system.py        # Design system generation
-│   └── ingest-mobbin.py        # Mobbin Pro export ingestion pipeline
+│   ├── ingest-mobbin.py        # Mobbin Pro export ingestion pipeline
+│   └── figma-helpers/          # Reusable figma_execute JS patterns
+│       ├── ds-inventory.js     # Design system inventory (tokens, components, styles)
+│       ├── build-verified.js   # Build + structural description for verification
+│       ├── token-bind.js       # Find and bind variables to node properties
+│       ├── component-place.js  # Search, instantiate, override, position
+│       └── drift-compare.js    # Normalize node tree for reconciliation diffs
 └── references/
     ├── mobbin/                  # Ingested Mobbin exports (searchable index)
     └── gold-standards/          # Drop exceptional design examples here
@@ -42,13 +49,16 @@ Draws on clerestory-workbench doctrine and domain knowledge as a contextual laye
 ## Workflows
 
 ### Design in Figma
-Load `foundations` + `figma-execution`. Use Figma Console MCP to build. Follow the build-verify loop.
+Load `foundations` + `figma-execution` + `mcp-orchestration`. Use Figma Console MCP to build. Always inventory existing tokens and components first (ds-inventory.js helper). Follow the build-verify loop.
 
 ### Figma to Code
-Load `figma-to-code` + `motion`. Extract design intent via Figma MCP `get_design_context`, translate to React/Tailwind/GSAP. Establish Code Connect mappings.
+Load `figma-to-code` + `motion` + `mcp-orchestration`. Official MCP reads (get_design_context, Code Connect, variables). Console MCP supplements with deep reads when needed. Translate to React/Tailwind/GSAP. Register Code Connect mappings.
 
 ### Code to Figma (Reconciliation)
-Load `code-to-figma` + `figma-execution`. Manually invoked. Crawl codebase or receive screenshots of rendered UI. Compare against Figma source. Report drift. Update Figma components and frames after user confirms. Maintain `armature-manifest.json` for mappings.
+Load `code-to-figma` + `figma-execution` + `mcp-orchestration`. Manually invoked. Official MCP reads current Figma state. Compare against codebase (drift-compare.js helper). Report drift. Console MCP executes confirmed updates. Update manifest and Code Connect.
+
+### MCP Orchestration
+Load `mcp-orchestration` for any Figma work. Routes reads to Official MCP, writes to Console MCP. Composes multi-step operations. Helper scripts in `scripts/figma-helpers/` provide reusable `figma_execute` patterns.
 
 ### Clerestory Context
 Always loads doctrine (tenPrinciples, coreDesignPhilosophyLayer, coreOutputProtocol, antiPatterns). Loads domain files targeted to the task medium. Loads project/client context only when a specific engagement is named.

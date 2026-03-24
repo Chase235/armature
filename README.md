@@ -97,6 +97,16 @@ Deep execution reference for animation in React with GSAP.
 - **Timeline choreography** — Sequencing, position parameters, labels, stagger
 - **Reduced motion** — `prefers-reduced-motion` compliance (non-negotiable)
 
+### MCP Orchestration
+
+Armature composes two Figma MCP servers into coherent workflows. The Official Figma MCP reads designs (structured context, Code Connect, token definitions). The Figma Console MCP builds and modifies (arbitrary Plugin API execution, visual verification, design system management). The orchestration layer routes operations to the right server and chains multi-step sequences into single logical operations.
+
+- **MCP routing** — Clear rules for when to use which server, when to compose both
+- **Design-system-aware builds** — Always inventory existing tokens and components before creating anything. Bind to variables, instantiate from libraries.
+- **Composite operations** — Design-system-aware build, extract-and-translate, reconcile, component creation, token bootstrap
+- **Helper scripts** — Reusable `figma_execute` JavaScript patterns for common multi-step operations (token binding, component placement, drift comparison, design system inventory)
+- **Lifecycle coordination** — Design, code, and reconcile as a continuous pipeline sharing state through the mapping manifest and Code Connect
+
 ### Reference
 
 - **Searchable databases** — 50+ styles, color palettes, typography pairings, UX guidelines, chart types (BM25 search engine)
@@ -125,13 +135,20 @@ Armature draws on the clerestory-workbench knowledge system for deeper design gr
 │   ├── figma-execution.md      # Design intent → Figma Console MCP calls
 │   ├── figma-to-code.md        # Figma → React/Tailwind/GSAP production code
 │   ├── code-to-figma.md        # Code drift → Figma reconciliation pipeline
-│   └── motion.md               # GSAP in React: transitions, scroll, micro-interactions
+│   ├── motion.md               # GSAP in React: transitions, scroll, micro-interactions
+│   └── mcp-orchestration.md    # MCP routing, composite operations, lifecycle
 ├── data/                        # Searchable CSV databases
 ├── scripts/
 │   ├── search.py               # BM25 search engine
 │   ├── core.py                 # Search engine core
 │   ├── design_system.py        # Design system generation
-│   └── ingest-mobbin.py        # Mobbin export ingestion pipeline
+│   ├── ingest-mobbin.py        # Mobbin export ingestion pipeline
+│   └── figma-helpers/          # Reusable figma_execute JS patterns
+│       ├── ds-inventory.js     # Design system inventory
+│       ├── build-verified.js   # Build + structural verification
+│       ├── token-bind.js       # Variable binding
+│       ├── component-place.js  # Component search + instantiation
+│       └── drift-compare.js    # Node tree normalization for diffs
 └── references/
     ├── mobbin/                  # Ingested reference screens
     └── gold-standards/          # Exceptional design examples
