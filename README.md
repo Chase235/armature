@@ -1,22 +1,16 @@
 # Armature
 
-The Claude Code skill that provides framework for good design — and a bidirectional bridge between Figma and production code.
-
----
+A design intelligence skill for Claude Code and a bidirectional bridge between Figma and production code.
 
 ## Mission
 
-Armature is a design intelligence layer and Figma-Code bridge for Claude Code. It exists to solve two problems:
+Claude is smart enough to design well. What it actually needs is the right knowledge, delivered without hand-holding. Armature gives it a design education (spacing, hierarchy, typography, color, density, motion) and then gets out of the way, trusting it to synthesize that into something that fits the problem.
 
-1. **Claude needs the right design knowledge** — not over-explained abstractions or prescriptive step-by-step paths, but deep understanding of what makes design work, delivered in a way that trusts Claude to synthesize novel solutions.
+The other half of the problem is that Figma files and codebases stop agreeing with each other almost immediately. You start building, you vibe-code a few sessions, scope shifts, and suddenly the shipped product looks nothing like the design file. Armature closes that gap in both directions. Push designs into production-quality React, Tailwind, and GSAP. Pull drifted code back into Figma so the file reflects what actually shipped.
 
-2. **Figma and code drift apart** — designs become stale the moment development begins. Vibe-coding sessions, iterative dev, and scope shifts mean the shipped product looks different from the Figma file. Armature closes that loop in both directions.
+This is a first-pass and feedback-round tool. It operates from precise creative direction and brief-oriented problem solving. Claude with Armature builds the bones: the architecture, the spatial logic, the information hierarchy, the component structure. A trained designer comes in after and brings it to life. The skill gives the designer a researched starting point worth refining rather than something they need to rebuild from scratch.
 
-This skill provides a **design education**, not a recipe book. It teaches Claude to understand key design philosophies about spacing, hierarchy, typography, color, density, and motion — then trusts Claude to synthesize that knowledge into solutions that fit the problem at hand.
-
-**Armature is a first-pass and feedback-round tool.** It operates from precise creative direction and brief-oriented problem solving. Claude with Armature builds the bones — the architecture, the spatial logic, the information hierarchy, the component structure. A trained designer comes in after and brings it to life. The skill doesn't replace the designer. It gives the designer a time-saving starting point and researched position worth refining rather than rebuilding.
-
-The name comes from sculpture and architecture: an armature is the internal skeleton — the wire framework you never see but without which nothing stands. That's what this skill is. The invisible framework behind design decisions.
+The name comes from sculpture and architecture. An armature is the internal skeleton, the wire framework you never see but without which nothing stands. The invisible framework behind design decisions.
 
 ---
 
