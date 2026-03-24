@@ -1,23 +1,30 @@
-# Armature — Design Intelligence Skill
+# Armature — Design Intelligence + Figma-Code Bridge
 
-The hidden framework that gives form to great design. A design education, not a recipe book.
+The hidden framework that gives form to great design. A design education, not a recipe book — plus the bidirectional bridge between Figma and production code.
 
 ## What This Is
 
-Armature is a Claude Code skill for crafting production-grade interfaces in Figma via the Figma Console MCP. It provides deep design knowledge — spacing, typography, color, hierarchy, density — and the execution patterns to translate that knowledge into precise Figma builds.
+Armature is a Claude Code skill with two core capabilities:
 
-Specializes in AI product interfaces: conversational UI, generation flows, command patterns, agent interfaces, and the scalable design systems that support them.
+1. **Design intelligence** — Deep knowledge of spacing, typography, color, hierarchy, density, and motion, with execution patterns for Figma Console MCP builds and AI product interfaces.
+
+2. **Bidirectional Figma-Code bridge** — Translate Figma designs into production React/Tailwind/GSAP code, and reconcile production code that has drifted back into Figma. Maintains explicit mappings between Figma nodes and codebase files.
+
+Draws on clerestory-workbench doctrine and domain knowledge as a contextual layer.
 
 ## Architecture
 
 ```
 .claude/skills/armature/
-├── SKILL.md                     # Entry point — philosophy and routing
+├── SKILL.md                     # Entry point — philosophy, routing, clerestory loading protocol
 ├── knowledge/
-│   ├── foundations.md           # Spacing, type, color, hierarchy, density, motion
+│   ├── foundations.md           # Spacing, type, color, hierarchy, density, containers
 │   ├── ai-interfaces.md        # Patterns from the best AI products shipping today
 │   ├── scalable-systems.md     # Token architecture, component composition, governance
-│   └── figma-execution.md      # The bridge: design intent → Figma Console MCP calls
+│   ├── figma-execution.md      # Design intent → Figma Console MCP calls
+│   ├── figma-to-code.md        # Figma → React/Tailwind/GSAP production code
+│   ├── code-to-figma.md        # Code drift → Figma reconciliation pipeline
+│   └── motion.md               # GSAP in React: transitions, scroll, micro-interactions
 ├── data/                        # Searchable CSV databases (BM25 search engine)
 │   ├── styles.csv, colors.csv, typography.csv, ux-guidelines.csv
 │   ├── charts.csv, products.csv, landing.csv, icons.csv
@@ -31,6 +38,22 @@ Specializes in AI product interfaces: conversational UI, generation flows, comma
     ├── mobbin/                  # Ingested Mobbin exports (searchable index)
     └── gold-standards/          # Drop exceptional design examples here
 ```
+
+## Workflows
+
+### Design in Figma
+Load `foundations` + `figma-execution`. Use Figma Console MCP to build. Follow the build-verify loop.
+
+### Figma to Code
+Load `figma-to-code` + `motion`. Extract design intent via Figma MCP `get_design_context`, translate to React/Tailwind/GSAP. Establish Code Connect mappings.
+
+### Code to Figma (Reconciliation)
+Load `code-to-figma` + `figma-execution`. Manually invoked. Crawl codebase or receive screenshots of rendered UI. Compare against Figma source. Report drift. Update Figma components and frames after user confirms. Maintain `armature-manifest.json` for mappings.
+
+### Clerestory Context
+Always loads doctrine (tenPrinciples, coreDesignPhilosophyLayer, coreOutputProtocol, antiPatterns). Loads domain files targeted to the task medium. Loads project/client context only when a specific engagement is named.
+
+Path: `../../clerestory-workbench/` (relative to workshop/builds/armature)
 
 ## Search
 
@@ -63,8 +86,17 @@ python3 .claude/skills/armature/scripts/ingest-mobbin.py --list
 ## Prerequisites
 
 - Python 3.x (no external dependencies)
-- Figma Console MCP (for execution)
+- Figma Console MCP (for Figma execution)
 - Figma Desktop with Bridge plugin (for live builds)
+- Figma MCP (for design context extraction and Code Connect)
+- Access to clerestory-workbench (for doctrine/domain context)
+
+## Tech Stack (Code Output)
+
+- React 19, TypeScript
+- Tailwind CSS
+- GSAP (with ScrollTrigger, Flip, useGSAP)
+- Semantic HTML, WCAG AA accessibility
 
 ## Git Workflow
 

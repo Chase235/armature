@@ -1,26 +1,36 @@
 ---
 name: armature
-description: "Design intelligence for crafting production-grade interfaces in Figma. Deep knowledge of what makes great design — spacing, typography, color, hierarchy, density, motion — and how to execute it through the Figma Console MCP. Specializes in AI product interfaces, scalable design systems, and the translation from design intent to Figma execution. Activate for any UI/UX design work, Figma builds, design system creation, interface critique, or when the user needs design thinking applied to a product problem."
-argument-hint: "[design intent or context]"
+description: "Design intelligence and bidirectional Figma-Code bridge. Deep knowledge of what makes great design — spacing, typography, color, hierarchy, density, motion — with execution layers for Figma Console MCP builds, Figma-to-Code translation (React, Tailwind, GSAP), and Code-to-Figma reconciliation when production UI drifts from design files. Draws on clerestory-workbench doctrine and domain knowledge as a contextual layer. Activate for any UI/UX design work, Figma builds, design system creation, interface critique, code-to-design sync, or when the user needs design thinking applied to a product problem."
+argument-hint: "[design intent, Figma URL, code path, or reconciliation target]"
 license: MIT
 metadata:
   author: clerestory
-  version: "1.0.0"
+  version: "2.0.0"
 ---
 
 # Armature
 
 The hidden framework that gives form to great design.
 
-Armature is a design intelligence layer — not a recipe book. It provides the knowledge, references, and execution patterns needed to craft interfaces at the level of the best studios shipping today. It trusts your intelligence to synthesize, adapt, and find novel solutions rather than prescribing rigid workflows.
+Armature is a design intelligence layer and a bidirectional bridge between Figma and code. It provides the knowledge, references, execution patterns, and translation pipelines needed to move design intent in both directions — from Figma to production code, and from drifted production code back into Figma.
+
+It trusts your intelligence to synthesize, adapt, and find novel solutions rather than prescribing rigid workflows.
 
 ## What This Skill Provides
 
 **Knowledge** — Deep understanding of what makes design work: spacing systems, typographic hierarchy, color theory in practice, information density, progressive disclosure, and the specific patterns emerging in AI product interfaces.
 
-**Execution** — The translation layer between design intent and Figma Console MCP. How to think in Figma's terms while maintaining design quality. The bridge from "this needs generous whitespace with a clear content hierarchy" to the actual `figma_execute` calls that build it.
+**Figma Execution** — The translation layer between design intent and Figma Console MCP. How to think in Figma's terms while maintaining design quality. Build, verify, iterate.
+
+**Figma to Code** — Extract design intent from Figma files and produce production-quality React/Tailwind/GSAP code. Not screenshot-to-markup — intent-faithful implementation that produces the kind of code a senior engineer would write.
+
+**Code to Figma** — When production code drifts from Figma (vibe-coding, iterative dev, scope shifts), crawl the codebase, visualize the rendered state, detect drift, and push updates back into Figma so the design file reflects what actually shipped.
+
+**Motion** — Deep GSAP execution knowledge for React: page transitions, scroll-triggered animations, micro-interactions, layout animations, timeline choreography, and the reduced-motion practices that make it production-ready.
 
 **Reference** — Searchable databases of styles, color palettes, typography pairings, UX guidelines, and chart types. A Mobbin ingestion pipeline for studying real-world interfaces. A gold standards directory for calibration.
+
+**Clerestory Context** — Draws on the clerestory-workbench doctrine and domain knowledge layers to ground design decisions in established principles, cultural context, and domain-specific expertise.
 
 ## When to Activate
 
@@ -28,9 +38,11 @@ Armature is a design intelligence layer — not a recipe book. It provides the k
 - Building interfaces for AI products
 - Creating or extending design systems
 - Design critique or review
-- Translating design intent into Figma artifacts
+- Translating Figma designs into React/Tailwind/GSAP code
+- Reconciling code drift back into Figma
 - Studying or referencing real-world interface patterns
 - When the user shares Mobbin exports or reference screenshots
+- When motion design or GSAP implementation is needed
 
 ## Knowledge
 
@@ -40,8 +52,80 @@ Load these as needed — they're deep reference, not sequential steps.
 |------|-----------------|
 | `knowledge/foundations.md` | Spacing, typography, color, hierarchy, density, containers, motion — the fundamentals of great interface design |
 | `knowledge/ai-interfaces.md` | Patterns from the best AI products shipping today — conversational UI, generation interfaces, command patterns, streaming, artifacts |
-| `knowledge/scalable-systems.md` | Design systems that serve products rather than constraining them — token architecture, component composition, multi-brand systems |
-| `knowledge/figma-execution.md` | **The bridge.** Translating design intent into Figma Console MCP calls. Auto-layout, components, variables, the build→verify loop |
+| `knowledge/scalable-systems.md` | Design systems that serve products — token architecture, component composition, multi-brand systems, governance |
+| `knowledge/figma-execution.md` | **Figma builds.** Translating design intent into Figma Console MCP calls. Auto-layout, components, variables, the build-verify loop |
+| `knowledge/figma-to-code.md` | **Design to code.** Extracting design intent from Figma and producing production React/Tailwind/GSAP. Code Connect integration, token translation, component extraction |
+| `knowledge/code-to-figma.md` | **Reconciliation.** Detecting drift between code and Figma, mapping manifests, codebase crawling, pushing code reality back into Figma components and frames |
+| `knowledge/motion.md` | **GSAP in React.** Page transitions, scroll-triggered animations, micro-interactions, Flip layout animations, timeline choreography, easing, reduced motion, performance |
+
+### Knowledge Routing
+
+| Task | Load These |
+|------|-----------|
+| Design a screen in Figma | `foundations` + `figma-execution` (+ `ai-interfaces` if AI product) |
+| Build a design system in Figma | `scalable-systems` + `figma-execution` |
+| Convert Figma design to code | `figma-to-code` + `motion` |
+| Reconcile code drift to Figma | `code-to-figma` + `figma-execution` |
+| Critique an interface | `foundations` + `ai-interfaces` |
+| Add animations to a page | `motion` |
+| Full pipeline (design → code → reconcile) | All files as needed per phase |
+
+## Clerestory Context Layer
+
+Armature draws on the clerestory-workbench knowledge system as a contextual layer. This grounds design work in established doctrine, domain expertise, and project-specific constraints.
+
+### Loading Protocol
+
+**Always load (doctrine):**
+These files define how to think about design. Load them as the foundation for any design task.
+
+```
+clerestory-workbench/doctrine/
+  tenPrinciples.md              — The ten principles; governing standard
+  coreDesignPhilosophyLayer.md  — Design OS, Rams checklist, quality gates
+  coreOutputProtocol.md         — Deliverable format, modes, compression
+  antiPatterns.md               — Failure taxonomy; final scan before output
+```
+
+**Load by domain (targeted):**
+Select the domain that matches the active task medium.
+
+```
+clerestory-workbench/02-domains/
+  experience-and-product-design/   — Human-AI collaboration, workspace UI, trust, flows
+  visual-design/                   — Identity, type hierarchy, grid, color theory
+  architecture/                    — Structure, circulation, thresholds, atmosphere
+  writing/                         — Craft, voice registers, UX copy
+  design-intelligence/             — Current trends, competitive context, tool landscape
+```
+
+Within each domain, load in order: `01_` (method) → `02_` (systems) → `03_` (calibration).
+
+Design intelligence is a cross-cutting layer — load alongside any other domain when the work benefits from awareness of current industry thinking.
+
+**Load on request (project/client context):**
+When working on a specific client project, pull in the targeted context:
+
+```
+clerestory-workbench/01-projects/[client]/
+  currentContext.md                           — Standing brand, voice, constraints
+  projects/[project]/brief.md                 — Project scope and constraints
+  projects/[project]/project-context.md       — Session whiteboard
+  projects/[project]/inspiration/             — Design references (extract decisions, not style)
+```
+
+Only load these when the user names a client or project, or when the work is clearly scoped to a specific engagement.
+
+### When to Load What
+
+| Scenario | Doctrine | Domain | Project/Client |
+|----------|----------|--------|---------------|
+| General design work | Yes | By task medium | No |
+| Client project work | Yes | By task medium | Yes — named project |
+| Design critique | Yes | Match to medium | If critiquing client work |
+| Code-to-Figma reconciliation | Yes (quality gates) | Product design | If client project |
+| Figma-to-code translation | Yes (quality gates) | Product design | If client project |
+| Design system creation | Yes | Visual + product | If for a client |
 
 ## Search Engine
 
@@ -69,6 +153,12 @@ Creates a searchable index of screens, patterns, and metadata from real-world ap
 ### Gold Standards
 
 `references/gold-standards/` — Drop screenshots, exports, or annotated examples of exceptional design here. These serve as calibration for quality, not as templates to copy.
+
+## Mapping Manifest
+
+For bidirectional Figma-Code sync, maintain a mapping manifest at the project root:
+
+`armature-manifest.json` — Links Figma nodes to codebase files. See `knowledge/code-to-figma.md` for the full manifest format and workflows.
 
 ## Design Gate
 
