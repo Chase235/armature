@@ -1,16 +1,20 @@
 # Armature
 
-The Claude Code skill that provides framework for good design.
+The Claude Code skill that provides framework for good design — and a bidirectional bridge between Figma and production code.
 
 ---
 
 ## Mission
 
-Armature is a design intelligence layer for Claude Code. It exists to solve a specific problem: Claude is smart enough to design well, but it needs the right knowledge, not over-explained abstractions or prescriptive step-by-step paths that constrain novel thinking.
+Armature is a design intelligence layer and Figma-Code bridge for Claude Code. It exists to solve two problems:
+
+1. **Claude needs the right design knowledge** — not over-explained abstractions or prescriptive step-by-step paths, but deep understanding of what makes design work, delivered in a way that trusts Claude to synthesize novel solutions.
+
+2. **Figma and code drift apart** — designs become stale the moment development begins. Vibe-coding sessions, iterative dev, and scope shifts mean the shipped product looks different from the Figma file. Armature closes that loop in both directions.
 
 This skill provides a **design education**, not a recipe book. It teaches Claude to understand key design philosophies about spacing, hierarchy, typography, color, density, and motion — then trusts Claude to synthesize that knowledge into solutions that fit the problem at hand.
 
-**Armature is a first-pass and feedback-round tool.** It operates from precise creative direction and brief-oriented problem solving. The understanding is clear: Claude with Armature builds the bones — the architecture, the spatial logic, the information hierarchy, the component structure. A trained designer comes in after and brings it to life. The skill doesn't replace the designer. It gives the designer a time-saving starting point and researched position worth refining rather than rebuilding.
+**Armature is a first-pass and feedback-round tool.** It operates from precise creative direction and brief-oriented problem solving. Claude with Armature builds the bones — the architecture, the spatial logic, the information hierarchy, the component structure. A trained designer comes in after and brings it to life. The skill doesn't replace the designer. It gives the designer a time-saving starting point and researched position worth refining rather than rebuilding.
 
 The name comes from sculpture and architecture: an armature is the internal skeleton — the wire framework you never see but without which nothing stands. That's what this skill is. The invisible framework behind design decisions.
 
@@ -60,14 +64,44 @@ Deep understanding of what makes design work — not as abstract theory, but as 
 - **AI Product Interfaces** — Patterns from Claude, Linear, Figma, Perplexity, Arc, Raycast, v0 — conversational UI, generation flows, command patterns, agent interfaces
 - **Scalable Systems** — Token architecture, component composition, design system governance that serves the product rather than constraining it
 
-### Execution
+### Figma Execution
 
-The translation layer between design intent and Figma. This is the hard part — Armature maps every major design concept to its Figma Console MCP equivalent with working code patterns.
+The translation layer between design intent and Figma. Maps every major design concept to its Figma Console MCP equivalent with working code patterns.
 
 - Auto-layout as the layout engine (flexbox thinking in Figma's terms)
 - Typography, color, effects, components, variables
 - Common patterns: cards, sidebars, dashboards, inputs, navigation
 - The build-verify loop: execute, screenshot, analyze, iterate
+
+### Figma to Code
+
+Extract design intent from Figma files and produce production-quality code. Not screenshot-to-markup — intent-faithful implementation.
+
+- Design context extraction via Figma MCP (`get_design_context`, `get_screenshot`)
+- Decision inventory: layout, spacing, typography, color, components, motion intent
+- Translation to **React, Tailwind CSS, GSAP** — the kind of code a senior engineer writes
+- Code Connect integration for component mapping between Figma and codebase
+- Token translation: Figma variables to Tailwind theme + CSS custom properties
+
+### Code to Figma
+
+When production UI drifts from Figma, reconcile backward. Manually invoked.
+
+- **Targeted reconciliation** — Point at a specific screen that drifted, get a drift report, confirm, and update Figma
+- **Codebase crawl** — Point at a codebase directory, walk routes and components, map against Figma frames, and batch-reconcile
+- **Mapping manifest** (`armature-manifest.json`) — Explicit links between Figma nodes and code paths, maintained across syncs
+- Component and frame updates via `figma_execute` — properties, added/removed elements, full rebuilds when drift is extensive
+
+### Motion (GSAP)
+
+Deep execution reference for animation in React with GSAP.
+
+- **Page transitions** — Route-level enter/exit, cross-fade, staggered content reveals
+- **Scroll-triggered animations** — Reveal on scroll, scroll-linked progress, parallax, pin-and-sequence
+- **Micro-interactions** — Hover effects, button press feedback, expand/collapse, number counters
+- **Layout animations** — Flip plugin for filtering, sorting, expanding, reparenting
+- **Timeline choreography** — Sequencing, position parameters, labels, stagger
+- **Reduced motion** — `prefers-reduced-motion` compliance (non-negotiable)
 
 ### Reference
 
@@ -75,18 +109,29 @@ The translation layer between design intent and Figma. This is the hard part —
 - **Mobbin pipeline** — Ingest Mobbin Pro exports for real-world interface reference
 - **Gold standards** — A directory for exceptional design examples that calibrate quality
 
+### Clerestory Context Layer
+
+Armature draws on the clerestory-workbench knowledge system for deeper design grounding:
+
+- **Doctrine** (always loaded) — Ten principles, design philosophy, output protocol, anti-patterns
+- **Domains** (targeted by task) — Experience/product design, visual design, architecture, writing, design intelligence
+- **Project/client context** (on request) — Briefs, constraints, inspiration for specific engagements
+
 ---
 
 ## Architecture
 
 ```
 .claude/skills/armature/
-├── SKILL.md                     # Entry point — philosophy and routing
+├── SKILL.md                     # Entry point — philosophy, routing, context loading
 ├── knowledge/
-│   ├── foundations.md           # Spacing, type, color, hierarchy, density, motion
+│   ├── foundations.md           # Spacing, type, color, hierarchy, density, containers
 │   ├── ai-interfaces.md        # Patterns from the best AI products today
 │   ├── scalable-systems.md     # Token architecture, composition, governance
-│   └── figma-execution.md      # The bridge: design intent → Figma Console MCP
+│   ├── figma-execution.md      # Design intent → Figma Console MCP calls
+│   ├── figma-to-code.md        # Figma → React/Tailwind/GSAP production code
+│   ├── code-to-figma.md        # Code drift → Figma reconciliation pipeline
+│   └── motion.md               # GSAP in React: transitions, scroll, micro-interactions
 ├── data/                        # Searchable CSV databases
 ├── scripts/
 │   ├── search.py               # BM25 search engine
@@ -118,8 +163,17 @@ python3 .claude/skills/armature/scripts/ingest-mobbin.py --search "onboarding fl
 ## Prerequisites
 
 - Python 3.x (no external dependencies)
-- Figma Console MCP (for design execution)
+- Figma Console MCP (for Figma execution)
 - Figma Desktop with Bridge plugin (for live builds)
+- Figma MCP (for design context extraction and Code Connect)
+- Access to clerestory-workbench (for doctrine/domain context)
+
+## Tech Stack (Code Output)
+
+- React 19, TypeScript
+- Tailwind CSS
+- GSAP (ScrollTrigger, Flip, useGSAP)
+- Semantic HTML, WCAG AA accessibility
 
 ## Status
 
@@ -129,7 +183,7 @@ This is a living skill. The knowledge files, data, and execution patterns are de
 
 ## Credits
 
-Search engine and CSV databases adapted from [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) by nextlevelbuilder (MIT License). Knowledge layer (both the knowledge layer built into this skill and the layers that're part of the overarching Atelier scaffolding system), Figma execution bridge, Mobbin pipeline linkage, and core design philosophy by clerestory.
+Search engine and CSV databases adapted from [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) by nextlevelbuilder (MIT License). Knowledge layer (both the knowledge layer built into this skill and the layers that're part of the overarching Atelier scaffolding system), Figma execution bridge, Figma-Code bridge, motion layer, Mobbin pipeline linkage, and core design philosophy by clerestory.
 
 ## License
 
