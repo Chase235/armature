@@ -4,15 +4,15 @@ A design intelligence skill for Claude Code that explores, evaluates, learns, an
 
 ## Mission
 
-The problem with AI-assisted design isn't intelligence. Claude is smart enough to design well. The problem is that it goes linear: one direction, iterate, hope for the best. A great designer doesn't work that way. They sketch five thumbnails, pin the best two to the wall, and develop from there. Armature brings that instinct to AI by treating design exploration as a search problem, not a single-shot generation.
+The problem with AI-assisted design isn't intelligence. Claude is smart enough to design well. The problem is that it goes linear: one direction, iterate, hope for the best. Good design rarely goes down like that. Design is all about iteration. Armature brings that instinct to AI by treating design exploration as a search problem, not a linear generation.
 
-When you start a new screen, Armature branches into multiple spatial strategies in Figma, scores each across measurable and vision-evaluated quality dimensions, and surfaces a Pareto frontier of candidates for you to choose from. You're picking from explored territory, not betting on a first instinct. The system always includes a wild card branch that breaks a convention on purpose, because industry-defining design doesn't come from executing conventions well. It comes from questioning whether the convention was right.
+When you start a new screen, Armature branches into multiple spatial strategies in Figma, scores each across measurable and vision-evaluated quality dimensions, and surfaces a Pareto frontier of candidates for you to choose from. You're picking from explored territory, not betting on a first instinct. The system always includes a wild card branch that breaks a convention, because design simply has to get weird sometimes.
 
-Every session feeds back into the system. A reflection log captures what worked and what didn't, grounded in design principles rather than vibes. A composite scoring system (spacing consistency, hierarchy clarity, visual balance, accessibility, brand alignment, information density, innovation) tracks quality across iterations and gives the tree search something to prune against. And at the end of significant sessions, a Coach phase reviews what was learned and proposes targeted updates to Armature's own knowledge files, subject to your approval. The skill gets smarter with use. After fifty sessions it's not the same tool it was on day one.
+Every session feeds back into the system. A reflection log captures what worked and what didn't, grounded in design principles rather than vibes. A composite scoring system (spacing consistency, hierarchy clarity, visual balance, accessibility, brand alignment, information density, innovation) tracks quality across iterations and gives the tree search something to prune against, and at the end of significant sessions, a critique/postmortem phase reviews what was learned and proposes targeted updates to Armature's own knowledge files, subject to your approval. The skill gets smarter with use. After fifty sessions it's not the same tool it was on day one.
 
-Underneath all of that is a deep design education (spacing systems, typographic hierarchy, color theory, density, motion) and a bidirectional Figma-code bridge. Figma files and codebases stop agreeing with each other almost immediately. You vibe-code a few sessions, scope shifts, and the shipped product looks nothing like the design file. Armature closes that gap in both directions. Push designs into production-quality React, Tailwind, and GSAP. Pull drifted code back into Figma so the file reflects what actually shipped.
+Underneath all of that is a deep design education (spacing systems, typographic hierarchy, color theory, density, motion) and a bidirectional Figma-code bridge. Figma files and codebases stop agreeing with each other almost immediately. You vibe-code a few sessions, scope shifts, and the shipped product looks nothing like the design file. Armature closes that gap in both directions. Push designs into production-quality React and Tailwind. Pull drifted code back into Figma so the file reflects what actually shipped.
 
-This is a first-pass and feedback-round tool. It operates from precise creative direction and brief-oriented problem solving. Claude with Armature builds the bones: the architecture, the spatial logic, the information hierarchy, the component structure. A trained designer comes in after and brings it to life. The skill gives the designer a researched starting point worth refining rather than something they need to rebuild from scratch.
+This is also a first-pass and feedback-round tool. It operates from precise creative direction and brief-oriented problem solving. Armature can help Claude Code and Cowork craft the architecture, the spatial logic, the information hierarchy, the component structure. A skilled designer comes in after and brings it to life. This system gives the designer a researched starting point worth refining rather than something they need to rebuild from scratch.
 
 The name comes from sculpture and architecture. An armature is the internal skeleton, the wire framework you never see but without which nothing stands. The invisible framework behind design decisions.
 
@@ -138,17 +138,18 @@ Armature composes two Figma MCP servers into coherent workflows. The Official Fi
 ### Reference
 
 - **Searchable databases** — 50+ styles, color palettes, typography pairings, UX guidelines, chart types (BM25 search engine)
-- **Mobbin pipeline** — Ingest Mobbin Pro exports for real-world interface reference
+- **Mobbin pipeline** — Ingest Mobbin Pro exports for real-world targeted interface reference
 - **Gold standards** — A directory for exceptional design examples that calibrate quality
 
 ### Clerestory Context Layer
 
 Armature draws on the clerestory-workbench knowledge system for deeper design grounding:
 
-- **Doctrine** (always loaded) — Ten principles, design philosophy, output protocol, anti-patterns
-- **Domains** (targeted by task) — Experience/product design, visual design, architecture, writing, design intelligence
-- **Project/client context** (on request) — Briefs, constraints, inspiration for specific engagements
-
+  - Doctrine (always loaded) — Rams' principles, personal design philosophy, output protocol, anti-patterns                                        
+  - Domains (targeted by task) — Experience/product design, visual design, architecture, writing, design intelligence
+  - Project/client context (on request) — Briefs, constraints, inspiration for specific engagements                                     
+  - Design lineage — Rooted in modern architecture and Bauhaus sensibilities. Form follows function, legible tectonics, ornament is earned, structure is 
+  Honest and visible in the hierarchy. Clean, minimal, spatially confident.
 ---
 
 ## Architecture
@@ -161,7 +162,7 @@ Armature draws on the clerestory-workbench knowledge system for deeper design gr
 │   ├── ai-interfaces.md        # Patterns from the best AI products today
 │   ├── scalable-systems.md     # Token architecture, composition, governance
 │   ├── figma-execution.md      # Design intent → Figma Console MCP calls
-│   ├── figma-to-code.md        # Figma → React/Tailwind/GSAP production code
+│   ├── figma-to-code.md        # Figma → React/Tailwind production code
 │   ├── code-to-figma.md        # Code drift → Figma reconciliation pipeline
 │   ├── motion.md               # GSAP in React: transitions, scroll, micro-interactions
 │   ├── mcp-orchestration.md    # MCP routing, composite operations, lifecycle
@@ -222,13 +223,13 @@ python3 .claude/skills/armature/scripts/ingest-mobbin.py --search "onboarding fl
 
 ## Status
 
-v4.0. This is a living skill — literally. The self-improvement loop means the knowledge files grow with the practice. Each design session can propose updates to the skill's own understanding, curated by the designer. The data, execution patterns, and design intelligence evolve as the landscape of what constitutes great design evolves.
+v4.0. This is a living skill. The self-improvement loop means the knowledge files grow with the practice. Each design session can propose updates to the skill's own understanding, curated by the designer. The data, execution patterns, and design intelligence evolve as the landscape of what constitutes great design evolves.
 
 ---
 
 ## Credits
 
-Search engine and CSV databases adapted from [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) by nextlevelbuilder (MIT License). Knowledge layer (both the knowledge layer built into this skill and the layers that're part of the overarching Atelier scaffolding system), Figma execution bridge, Figma-Code bridge, motion layer, Mobbin pipeline linkage, and core design philosophy by clerestory.
+Search engine and CSV databases adapted from [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) by nextlevelbuilder (MIT License). Knowledge layer (both the knowledge layer built into this skill and the layers that're part of the overarching Atelier scaffolding system), Figma execution bridge, Figma-Code bridge, motion layer, Mobbin pipeline linkage, and core design philosophy by clerestory group, LLC.
 
 ## License
 
