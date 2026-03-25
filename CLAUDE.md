@@ -25,7 +25,12 @@ Draws on clerestory-workbench doctrine and domain knowledge as a contextual laye
 │   ├── figma-to-code.md        # Figma → React/Tailwind/GSAP production code
 │   ├── code-to-figma.md        # Code drift → Figma reconciliation pipeline
 │   ├── motion.md               # GSAP in React: transitions, scroll, micro-interactions
-│   └── mcp-orchestration.md    # MCP routing, composite operations, lifecycle
+│   ├── mcp-orchestration.md    # MCP routing, composite operations, lifecycle
+│   ├── reflection-protocol.md  # Build-verify reflection log (JSONL, append-only)
+│   ├── design-goal-protocol.md # Verifiable acceptance criteria before building
+│   ├── coach-protocol.md       # End-of-session knowledge self-improvement
+│   ├── quality-scoring-protocol.md  # Composite 7-dimension design evaluation
+│   └── tree-search-protocol.md      # Branching design exploration (3-5 directions)
 ├── data/                        # Searchable CSV databases (BM25 search engine)
 │   ├── styles.csv, colors.csv, typography.csv, ux-guidelines.csv
 │   ├── charts.csv, products.csv, landing.csv, icons.csv
@@ -40,7 +45,8 @@ Draws on clerestory-workbench doctrine and domain knowledge as a contextual laye
 │       ├── build-verified.js   # Build + structural description for verification
 │       ├── token-bind.js       # Find and bind variables to node properties
 │       ├── component-place.js  # Search, instantiate, override, position
-│       └── drift-compare.js    # Normalize node tree for reconciliation diffs
+│       ├── drift-compare.js    # Normalize node tree for reconciliation diffs
+│       └── layout-audit.js    # Measurable design quality extraction (spacing, contrast, targets)
 └── references/
     ├── mobbin/                  # Ingested Mobbin exports (searchable index)
     └── gold-standards/          # Drop exceptional design examples here
@@ -49,7 +55,7 @@ Draws on clerestory-workbench doctrine and domain knowledge as a contextual laye
 ## Workflows
 
 ### Design in Figma
-Load `foundations` + `figma-execution` + `mcp-orchestration`. Use Figma Console MCP to build. Always inventory existing tokens and components first (ds-inventory.js helper). Follow the build-verify loop.
+Load `foundations` + `figma-execution` + `mcp-orchestration` + `tree-search-protocol` + `quality-scoring-protocol` + `reflection-protocol` + `design-goal-protocol`. For new screens, start with tree search (3-5 branch exploration). Score branches with quality scoring. Promote best to full fidelity. Always inventory existing tokens and components first (ds-inventory.js helper). Follow the build-verify-reflect loop. Write a DESIGN-GOAL for non-trivial builds.
 
 ### Figma to Code
 Load `figma-to-code` + `motion` + `mcp-orchestration`. Official MCP reads (get_design_context, Code Connect, variables). Console MCP supplements with deep reads when needed. Translate to React/Tailwind/GSAP. Register Code Connect mappings.
@@ -64,6 +70,28 @@ Load `mcp-orchestration` for any Figma work. Routes reads to Official MCP, write
 Always loads doctrine (tenPrinciples, coreDesignPhilosophyLayer, coreOutputProtocol, antiPatterns). Loads domain files targeted to the task medium. Loads project/client context only when a specific engagement is named.
 
 Path: `../../clerestory-workbench/` (relative to workshop/builds/armature)
+
+### Self-Improvement Loop
+Armature accumulates design intelligence across sessions through three protocols:
+
+1. **Tree Search** (explore first) — For new screens, branch into 3-5 fundamentally different spatial strategies. Build lightweight skeletons, score all branches, promote the best 1-2 to full fidelity. Breadth before depth. See `knowledge/tree-search-protocol.md`.
+
+2. **Quality Scoring** (evaluate) — Composite 0-100 score across 7 dimensions: spacing consistency and accessibility (measurable via `layout-audit.js`), hierarchy clarity, visual balance, information density, brand alignment, and innovation (vision-evaluated). Enables tree search pruning and iteration tracking. See `knowledge/quality-scoring-protocol.md`.
+
+3. **DESIGN-GOAL** (before building) — Write verifiable acceptance criteria in `design-goals/[task].md`. Gives the verify step concrete targets instead of vibes.
+
+4. **Reflection Log** (during building) — After each verify screenshot that reveals issues, append a structured diagnosis to `armature-reflections.jsonl`. Read the last 10 entries before each build step. Prevents repeating mistakes.
+
+5. **Coach Phase** (after building) — At session end, review reflections and DESIGN-GOAL notes. Propose updates to knowledge files. Nothing changes without explicit approval.
+
+```
+DESIGN-GOAL → Tree Search → Score → Select → Build → Verify → Reflect → Coach
+     ↑              │                                                      |
+     │         [3-5 branches                                               |
+     │          scored and                                                  |
+     │          pruned]                                                     |
+     └──────────────── next session starts with better knowledge ──────────┘
+```
 
 ## Search
 

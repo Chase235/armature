@@ -1,12 +1,16 @@
 # Armature
 
-A design intelligence skill for Claude Code and a bidirectional bridge between Figma and production code.
+A design intelligence skill for Claude Code that explores, evaluates, learns, and bridges the gap between Figma and production code.
 
 ## Mission
 
-Claude is smart enough to design well. What it actually needs is the right knowledge, delivered without hand-holding. Armature gives it a design education (spacing, hierarchy, typography, color, density, motion) and then gets out of the way, trusting it to synthesize that into something that fits the problem.
+The problem with AI-assisted design isn't intelligence. Claude is smart enough to design well. The problem is that it goes linear: one direction, iterate, hope for the best. A great designer doesn't work that way. They sketch five thumbnails, pin the best two to the wall, and develop from there. Armature brings that instinct to AI by treating design exploration as a search problem, not a single-shot generation.
 
-The other half of the problem is that Figma files and codebases stop agreeing with each other almost immediately. You start building, you vibe-code a few sessions, scope shifts, and suddenly the shipped product looks nothing like the design file. Armature closes that gap in both directions. Push designs into production-quality React, Tailwind, and GSAP. Pull drifted code back into Figma so the file reflects what actually shipped.
+When you start a new screen, Armature branches into multiple spatial strategies in Figma, scores each across measurable and vision-evaluated quality dimensions, and surfaces a Pareto frontier of candidates for you to choose from. You're picking from explored territory, not betting on a first instinct. The system always includes a wild card branch that breaks a convention on purpose, because industry-defining design doesn't come from executing conventions well. It comes from questioning whether the convention was right.
+
+Every session feeds back into the system. A reflection log captures what worked and what didn't, grounded in design principles rather than vibes. A composite scoring system (spacing consistency, hierarchy clarity, visual balance, accessibility, brand alignment, information density, innovation) tracks quality across iterations and gives the tree search something to prune against. And at the end of significant sessions, a Coach phase reviews what was learned and proposes targeted updates to Armature's own knowledge files, subject to your approval. The skill gets smarter with use. After fifty sessions it's not the same tool it was on day one.
+
+Underneath all of that is a deep design education (spacing systems, typographic hierarchy, color theory, density, motion) and a bidirectional Figma-code bridge. Figma files and codebases stop agreeing with each other almost immediately. You vibe-code a few sessions, scope shifts, and the shipped product looks nothing like the design file. Armature closes that gap in both directions. Push designs into production-quality React, Tailwind, and GSAP. Pull drifted code back into Figma so the file reflects what actually shipped.
 
 This is a first-pass and feedback-round tool. It operates from precise creative direction and brief-oriented problem solving. Claude with Armature builds the bones: the architecture, the spatial logic, the information hierarchy, the component structure. A trained designer comes in after and brings it to life. The skill gives the designer a researched starting point worth refining rather than something they need to rebuild from scratch.
 
@@ -58,6 +62,14 @@ Deep understanding of what makes design work — not as abstract theory, but as 
 - **AI Product Interfaces** — Patterns from Claude, Linear, Figma, Perplexity, Arc, Raycast, v0 — conversational UI, generation flows, command patterns, agent interfaces
 - **Scalable Systems** — Token architecture, component composition, design system governance that serves the product rather than constraining it
 
+### Design Tree Search
+
+Don't start with one layout and iterate. Start with 3-5 fundamentally different spatial strategies — centered composition vs. asymmetric vs. content-forward vs. dense sidebar vs. a wild card that breaks a convention. Each branch gets built as a lightweight skeleton in Figma, scored across 7 quality dimensions, and the best 1-2 advance to full fidelity. AIDE showed tree-search wins 4x more than linear approaches. The same principle applies to design: the first direction you pick determines the ceiling. Tree search raises it.
+
+### Quality Scoring
+
+A composite 0-100 design evaluation system combining measurable dimensions (spacing system compliance, WCAG contrast ratios, hit target sizes — extracted via Figma node inspection) with vision-evaluated dimensions (hierarchy clarity, visual balance, information density, brand alignment, innovation — assessed via Claude vision on screenshots). Enables tree search pruning, iteration tracking, cross-project calibration, and structured design critique. Weights are adjustable per project type. Inspired by autovoiceevals' approach to scoring subjective quality.
+
 ### Figma Execution
 
 The translation layer between design intent and Figma. Maps every major design concept to its Figma Console MCP equivalent with working code patterns.
@@ -96,6 +108,22 @@ Deep execution reference for animation in React with GSAP.
 - **Layout animations** — Flip plugin for filtering, sorting, expanding, reparenting
 - **Timeline choreography** — Sequencing, position parameters, labels, stagger
 - **Reduced motion** — `prefers-reduced-motion` compliance (non-negotiable)
+
+### Self-Improvement Loop
+
+Armature doesn't just execute design — it learns from what it builds. Three protocols, inspired by the autonomous research agent ecosystem ([awesome-autoresearch](https://github.com/alvinunreal/awesome-autoresearch)), extend the build-verify loop into a system that accumulates design intelligence across sessions.
+
+```
+DESIGN-GOAL → Build → Verify → Reflect → [iterate] → Coach → Knowledge Update
+     ↑                                                              |
+     └──────────── next session starts with better knowledge ───────┘
+```
+
+**Reflection Log** — The centerpiece of the loop, adapted from [GEPA](https://github.com/gepa-ai/gepa)'s Actionable Side Information (ASI). GEPA's key insight is that reading full execution traces — not just pass/fail — produces 35x more efficient improvements than reinforcement learning. In autoresearch, the trace is an error log. In Armature, the trace is a *design critique*. After each verify screenshot where something needs adjustment, a structured JSONL entry captures what was wrong, why it was wrong (grounded in design principles), and what fixed it. Before each build step, the last 10 entries are read. This prevents repeating the same spacing mistake across frames, remembers patterns that worked in earlier iterations, and builds project-specific institutional memory. Over time, recurring patterns in the log signal knowledge gaps that trigger the Coach phase.
+
+**DESIGN-GOAL** — Adapted from [goal-md](https://github.com/jmilinovich/goal-md)'s principle that agents must construct a measurable definition of success before optimizing. For code, that's a fitness function. For design, it's a set of verifiable acceptance criteria — dimensional (spacing, sizing), relational (hierarchy, visual weight), systemic (token compliance), and accessible (contrast, hit targets). Written before non-trivial builds, these give the verify step concrete targets instead of vibes.
+
+**Coach Phase** — Adapted from [autocontext](https://github.com/greyhaven-ai/autocontext)'s multi-role architecture, which separates doing from learning-about-doing. At the end of significant sessions, the Coach reviews reflection entries and DESIGN-GOAL notes, then proposes targeted updates to Armature's own knowledge files. A new spacing pattern discovered during a Coraa build might become a permanent addition to `foundations.md`. A novel AI chat interaction might update `ai-interfaces.md`. Nothing changes without explicit human approval — the designer curates what persists.
 
 ### MCP Orchestration
 
@@ -136,7 +164,12 @@ Armature draws on the clerestory-workbench knowledge system for deeper design gr
 │   ├── figma-to-code.md        # Figma → React/Tailwind/GSAP production code
 │   ├── code-to-figma.md        # Code drift → Figma reconciliation pipeline
 │   ├── motion.md               # GSAP in React: transitions, scroll, micro-interactions
-│   └── mcp-orchestration.md    # MCP routing, composite operations, lifecycle
+│   ├── mcp-orchestration.md    # MCP routing, composite operations, lifecycle
+│   ├── reflection-protocol.md  # GEPA-inspired build-verify reflection log
+│   ├── design-goal-protocol.md # Verifiable acceptance criteria before building
+│   ├── coach-protocol.md       # End-of-session knowledge self-improvement
+│   ├── quality-scoring-protocol.md  # Composite 7-dimension design evaluation
+│   └── tree-search-protocol.md      # Branching design exploration
 ├── data/                        # Searchable CSV databases
 ├── scripts/
 │   ├── search.py               # BM25 search engine
@@ -148,7 +181,8 @@ Armature draws on the clerestory-workbench knowledge system for deeper design gr
 │       ├── build-verified.js   # Build + structural verification
 │       ├── token-bind.js       # Variable binding
 │       ├── component-place.js  # Component search + instantiation
-│       └── drift-compare.js    # Node tree normalization for diffs
+│       ├── drift-compare.js    # Node tree normalization for diffs
+│       └── layout-audit.js    # Measurable design quality extraction
 └── references/
     ├── mobbin/                  # Ingested reference screens
     └── gold-standards/          # Exceptional design examples
@@ -188,7 +222,7 @@ python3 .claude/skills/armature/scripts/ingest-mobbin.py --search "onboarding fl
 
 ## Status
 
-This is a living skill. The knowledge files, data, and execution patterns are designed to grow with the practice — updated as the landscape of what constitutes great design evolves.
+v4.0. This is a living skill — literally. The self-improvement loop means the knowledge files grow with the practice. Each design session can propose updates to the skill's own understanding, curated by the designer. The data, execution patterns, and design intelligence evolve as the landscape of what constitutes great design evolves.
 
 ---
 

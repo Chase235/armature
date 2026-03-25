@@ -5,7 +5,7 @@ argument-hint: "[design intent, Figma URL, code path, or reconciliation target]"
 license: MIT
 metadata:
   author: clerestory
-  version: "2.0.0"
+  version: "4.0.0"
 ---
 
 # Armature
@@ -31,6 +31,11 @@ It trusts your intelligence to synthesize, adapt, and find novel solutions rathe
 **Reference** — Searchable databases of styles, color palettes, typography pairings, UX guidelines, and chart types. A Mobbin ingestion pipeline for studying real-world interfaces. A gold standards directory for calibration.
 
 **Clerestory Context** — Draws on the clerestory-workbench doctrine and domain knowledge layers to ground design decisions in established principles, cultural context, and domain-specific expertise.
+
+**Self-Improvement Loop** — Three protocols that make Armature accumulate intelligence over time:
+- *Reflection Log* — Structured diagnosis after each build-verify iteration. Captures what went wrong, why, and what fixed it. Read before building, write after verifying.
+- *DESIGN-GOAL* — Verifiable acceptance criteria written before building. Makes "done" concrete so the verify step checks against defined targets, not vibes.
+- *Coach Phase* — End-of-session knowledge review. Proposes updates to Armature's own knowledge files based on what was learned. Nothing changes without approval.
 
 ## When to Activate
 
@@ -58,17 +63,23 @@ Load these as needed — they're deep reference, not sequential steps.
 | `knowledge/code-to-figma.md` | **Reconciliation.** Detecting drift between code and Figma, mapping manifests, codebase crawling, pushing code reality back into Figma components and frames |
 | `knowledge/motion.md` | **GSAP in React.** Page transitions, scroll-triggered animations, micro-interactions, Flip layout animations, timeline choreography, easing, reduced motion, performance |
 | `knowledge/mcp-orchestration.md` | **MCP orchestration.** Routing rules for Official vs Console MCP, composite operations, lifecycle coordination, helper script index, anti-patterns |
+| `knowledge/reflection-protocol.md` | **Reflection log.** Structured diagnosis after build-verify iterations. JSONL format, append-only, read-before-build. Turns iteration into institutional memory |
+| `knowledge/design-goal-protocol.md` | **DESIGN-GOAL.** Verifiable acceptance criteria before building. Target criteria, reference anchors, constraints, operating mode. The design brief as checklist |
+| `knowledge/coach-protocol.md` | **Coach phase.** End-of-session knowledge review. Proposes updates to knowledge files based on session learnings. Human-gated — nothing persists without approval |
+| `knowledge/quality-scoring-protocol.md` | **Quality scoring.** Composite design evaluation across 7 dimensions — measurable (spacing, accessibility) and vision-evaluated (hierarchy, balance, density, brand, innovation). Enables tree search pruning and progress tracking |
+| `knowledge/tree-search-protocol.md` | **Tree search.** Branching design exploration — 3-5 spatial strategies built as skeletons, scored, pruned, best promoted to full fidelity. AIDE-inspired breadth-before-depth |
 
 ### Knowledge Routing
 
 | Task | Load These |
 |------|-----------|
-| Design a screen in Figma | `foundations` + `figma-execution` + `mcp-orchestration` (+ `ai-interfaces` if AI product) |
-| Build a design system in Figma | `scalable-systems` + `figma-execution` + `mcp-orchestration` |
+| Design a screen in Figma | `foundations` + `figma-execution` + `mcp-orchestration` + `tree-search-protocol` + `quality-scoring-protocol` + `reflection-protocol` + `design-goal-protocol` (+ `ai-interfaces` if AI product) |
+| Build a design system in Figma | `scalable-systems` + `figma-execution` + `mcp-orchestration` + `quality-scoring-protocol` + `reflection-protocol` + `design-goal-protocol` |
 | Convert Figma design to code | `figma-to-code` + `motion` + `mcp-orchestration` |
 | Reconcile code drift to Figma | `code-to-figma` + `figma-execution` + `mcp-orchestration` |
-| Critique an interface | `foundations` + `ai-interfaces` |
+| Critique an interface | `foundations` + `ai-interfaces` + `quality-scoring-protocol` |
 | Add animations to a page | `motion` |
+| End of significant session | `coach-protocol` + `reflection-protocol` |
 | Full pipeline (design → code → reconcile) | All files as needed, `mcp-orchestration` always loaded |
 
 ## Clerestory Context Layer
@@ -192,3 +203,38 @@ Dieter Rams' 10 Principles of Good Design are the bedrock:
 - **Good design is honest.** Say what it does. Do what it says.
 - **Good design is deeply iterative.** First drafts are hypotheses. Build, see, evaluate, refine.
 - **Good design is as little design as possible.** If removing it doesn't hurt, it shouldn't be there.
+
+## Self-Improvement Loop
+
+Armature accumulates design intelligence over time through three protocols that extend the build-verify loop. These are inspired by autonomous research agent patterns (autoresearch, GEPA, autocontext, goal-md) adapted for design work where the evaluator is a human eye, not a numeric fitness function.
+
+### The Loop
+
+```
+DESIGN-GOAL → Tree Search → Score → Select → Build → Verify → Reflect → Coach
+     ↑              │                                                      |
+     │         [3-5 branches                                               |
+     │          scored and                                                  |
+     │          pruned]                                                     |
+     └──────────────── next session starts with better knowledge ──────────┘
+```
+
+### 0. Explore First: Tree Search
+
+For new screens or major layout work, don't go linear. Branch into 3-5 fundamentally different spatial strategies, build each as a lightweight skeleton in Figma, score all of them, and promote the best 1-2 to full fidelity. See `knowledge/tree-search-protocol.md`.
+
+### 1. Before Building: DESIGN-GOAL
+
+For non-trivial builds, write a `design-goals/[task].md` with verifiable acceptance criteria before starting. This gives the verify step something concrete to check against. See `knowledge/design-goal-protocol.md`.
+
+### 2. Evaluate: Quality Scoring
+
+Score designs across 7 dimensions — measurable (spacing consistency, accessibility via `layout-audit.js`) and vision-evaluated (hierarchy clarity, visual balance, information density, brand alignment, innovation via Claude vision). Produces a composite 0-100 score with per-dimension breakdowns. Enables tree search pruning and iteration tracking. See `knowledge/quality-scoring-protocol.md`.
+
+### 3. During Building: Reflection Log
+
+After each verify screenshot where something needs adjustment, append a structured entry to `armature-reflections.jsonl`. Before each build step, read the last 10 entries. This prevents repeating mistakes and accumulates project-specific knowledge. See `knowledge/reflection-protocol.md`.
+
+### 4. After Building: Coach Phase
+
+At the end of significant sessions, review the reflection log and DESIGN-GOAL notes. Propose targeted updates to knowledge files based on what was learned. Nothing changes without user approval. See `knowledge/coach-protocol.md`.
